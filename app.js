@@ -15,19 +15,21 @@ const GIPHY_KEY = "8xT89uK8gxhNC8CZx61XKOfdkpCFmAOa";
 
 searchButton.addEventListener("click", (event) => {
     console.log (event);
-    fetch(`${GIPHY_URL}?api_key=${GIPHY_KEY}&S=${searchInput}`)
-    .then((res) => {
-        return res.json();
-    })
-    .then((resJSON) => {
-        console.log(resJSON);
-        image.src = resJSON.data.images.original.url;
-        image.alt = resJSON.data.title;
-        searchInput.value = ""
-        feedback.textContent = "";``
-    })
-    .catch((err) => {
-        console.error(err);
-        feedback.textContent = err.message;
-    });
+    fetch(`${GIPHY_URL}?api_key=${GIPHY_KEY}&S=${searchInput}`,
+    {mode: "cors"}
+    )
+        .then((res) => {
+            return res.json();
+        })
+        .then((resJSON) => {
+            console.log(resJSON);
+            image.src = resJSON.data.images.original.url;
+            image.alt = resJSON.data.title;
+            searchInput.value = ""
+            feedback.textContent = "";``
+        })
+        .catch((err) => {
+            console.error(err);
+            feedback.textContent = err.message;
+        });
 });
